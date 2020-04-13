@@ -23,6 +23,7 @@ module.exports = {
       { from: './src/assets', to: 'assets' },
       { from: './src/popup.html', to: 'popup.html' },
       { from: './src/manifest.json', to: 'manifest.json' },
+      { from: './src/popup.css', to: 'popup.css' },
     ]),
   ],
   mode: 'production',

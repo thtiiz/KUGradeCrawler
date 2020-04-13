@@ -1,0 +1,8 @@
+body {
+  min-width: 300px;
+}
+
+.container {
+  box-sizing: border-box;
+  padding: 8px;
+}

@@ -4,7 +4,17 @@
 
 'use strict'
 
-import { login, getKU20 } from './util'
+import { login, getGrades } from './util'
+import qs from 'qs'
+
+const saveToLocal = (grades) => {
+  chrome.storage.sync.set({ grades: qs.stringify({ values: grades }) }, function () {
+    console.log('saved!!')
+  })
+  chrome.storage.sync.get('grades', function (result) {
+    const grades = qs.parse(result['grades'])
+  })
+}
 
 chrome.runtime.onInstalled.addListener(async function () {
   chrome.storage.sync.set({ color: '#3aa757' }, function () {
@@ -12,7 +22,8 @@ chrome.runtime.onInstalled.addListener(async function () {
   })
   console.log('onInstalled....')
   await login()
-  const ku20 = await getKU20()
+  const grades = await getGrades()
+  saveToLocal(grades)
 })
 
 chrome.webRequest.onBeforeSendHeaders.addListener(
@@ -21,7 +32,6 @@ chrome.webRequest.onBeforeSendHeaders.addListener(
     const referer = 'https://stdregis.ku.ac.th/_Student_RptKu.php'
     // not found Referer header
     if (refererIndex === -1) details.requestHeaders.push({ name: 'Referer', value: referer })
-    console.log(details.requestHeaders)
     return { requestHeaders: details.requestHeaders }
   },
   { urls: ['https://stdregis.ku.ac.th/_Student_RptKu.php?mode=KU20'] },
