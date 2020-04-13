@@ -2,6 +2,25 @@ body {
   width: 500px;
 }
 
+form > input {
+  margin: 8px 0 8px;
+}
+
+.btn-primary {
+  background-color: #996acc !important;
+  border: none !important;
+}
+
+.btn-danger {
+  background-color: #e15554 !important;
+  color: white !important;
+}
+
+.alert-success {
+  background-color: #3bb273 !important;
+  color: white !important;
+}
+
 .container {
   box-sizing: border-box;
   padding: 8px;
@@ -9,4 +28,9 @@ body {
 
 .inactive {
   display: none;
+}
+
+.announced {
+  background-color: #996acc;
+  color: white;
 }

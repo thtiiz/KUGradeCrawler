@@ -1,7 +1,7 @@
 {
-  "name": "Getting Started Example",
+  "name": "KUGradeCrawler",
   "version": "1.0",
-  "description": "Build an Extension!",
+  "description": "Automation fetch KU Grade",
   "permissions": ["storage", "https://stdregis.ku.ac.th/*", "webRequest", "webRequestBlocking", "alarms"],
   "background": {
     "scripts": ["background.js"],
@@ -10,17 +10,17 @@
   "browser_action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "assets/get_started16.png",
-      "32": "assets/get_started32.png",
-      "48": "assets/get_started48.png",
-      "128": "assets/get_started128.png"
+      "16": "assets/icon_16.png",
+      "32": "assets/icon_32.png",
+      "64": "assets/icon_64.png",
+      "128": "assets/icon_128.png"
     }
   },
   "icons": {
-    "16": "assets/get_started16.png",
-    "32": "assets/get_started32.png",
-    "48": "assets/get_started48.png",
-    "128": "assets/get_started128.png"
+    "16": "assets/icon_16.png",
+    "32": "assets/icon_32.png",
+    "64": "assets/icon_64.png",
+    "128": "assets/icon_128.png"
   },
   "manifest_version": 2
 }

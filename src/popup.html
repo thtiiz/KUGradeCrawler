@@ -27,14 +27,18 @@
         <div id="grades-timestamp"></div>
       </div>
     </div>
-    <!-- <button class="btn" id="grades-refresh">refresh</button> -->
+    <div class="text-center">
+      <img src="assets/icon_128.png" />
+    </div>
+    <h3 class="d-flex justify-content-center mb-3">KU Grade Crawler</h3>
     <div class="container login-section">
-      <div>Autentication</div>
-      <form id="login-form">
-        <input id="input-username" class="form-control" placeholder="username" type="text" name="username" />
-        <input id="input-password" class="form-control" placeholder="password" type="password" name="username" />
-        <button class="btn btn-primary" id="btn-login" style="width: 100%;" type="submit">Login</button>
-      </form>
+      <div id="login-section">
+        <form id="login-form">
+          <input id="input-username" class="form-control" placeholder="username" type="text" name="username" />
+          <input id="input-password" class="form-control" placeholder="password" type="password" name="username" />
+          <button class="btn btn-primary mt-3" id="btn-login" style="width: 100%;" type="submit">Login</button>
+        </form>
+      </div>
       <button class="btn btn-danger" id="btn-logout" style="width: 100%;">Logout</button>
     </div>
     <script src="popup.js"></script>

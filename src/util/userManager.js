@@ -6,10 +6,8 @@ class userManager {
   constructor() {
     this.URL_LOGIN = 'https://stdregis.ku.ac.th/_Login.php'
     this.URL_KU20 = 'https://stdregis.ku.ac.th/_Student_RptKu.php?mode=KU20'
-    console.log('construc')
     this.isLogin = false
     chrome.storage.sync.get('isLogin', (result) => {
-      console.log(result['isLogin'])
       if (result['isLogin']) {
         this.isLogin = true
       } else {

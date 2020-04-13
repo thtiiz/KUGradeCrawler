@@ -16,10 +16,6 @@ chrome.runtime.onInstalled.addListener(function () {
   scheduleRequest()
 })
 
-chrome.storage.onChanged.addListener(function (changes, namespace) {
-  console.log(changes)
-})
-
 chrome.alarms.onAlarm.addListener((alarm) => {
   if (alarm.name === 'refresh') {
     console.log('fetch')

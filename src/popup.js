@@ -1,9 +1,7 @@
 import userManager from './util/userManager'
-import qs from 'qs'
 
 document.getElementById('login-form').addEventListener('submit', handleForm)
 document.getElementById('btn-logout').addEventListener('click', onLogout)
-// document.getElementById('grades-refresh').addEventListener('click', refresh)
 document.addEventListener('DOMContentLoaded', (event) => {
   handleGrades()
   setInterval(() => {
@@ -20,19 +18,18 @@ function handleForm(e) {
 
 function handleGrades() {
   const gradesElem = document.getElementById('grades')
-  const loginFormElem = document.getElementById('login-form')
   const btnLogin = document.getElementById('btn-logout')
+  const loginSection = document.getElementById('login-section')
   chrome.storage.sync.get('isLogin', (result) => {
     const isLogin = result['isLogin']
-    console.log(isLogin)
     if (isLogin) {
       appendGradeElems()
+      loginSection.setAttribute('class', 'inactive')
       gradesElem.setAttribute('class', 'active')
-      loginFormElem.setAttribute('class', 'inactive')
       btnLogin.setAttribute('class', 'btn btn-danger')
     } else {
+      loginSection.setAttribute('class', 'active')
       gradesElem.setAttribute('class', 'inactive')
-      loginFormElem.setAttribute('class', 'active')
       btnLogin.setAttribute('class', 'inactive')
     }
   })
@@ -51,7 +48,7 @@ function onLogout() {
 
 function appendGradeElems() {
   chrome.storage.sync.get('grades', function (result) {
-    const grades = qs.parse(result['grades'])
+    const grades = result['grades']
     const tableElem = document.getElementById('grades-table')
     const timestampElem = document.getElementById('grades-timestamp')
     timestampElem.innerHTML = new Date(grades.timestamp)
@@ -72,6 +69,9 @@ function createGradeRow(grade) {
   tdArr.map((td) => {
     tr.appendChild(td)
   })
+  if (tdArr[2].innerHTML !== 'N') {
+    tr.setAttribute('class', 'announced')
+  }
   return tr
 }
 
