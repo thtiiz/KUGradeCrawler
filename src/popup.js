@@ -1,11 +1,17 @@
-import userManagement from './util/userManagement'
+import userManager from './util/userManager'
 import qs from 'qs'
 
 document.getElementById('login-form').addEventListener('submit', handleForm)
 document.getElementById('btn-logout').addEventListener('click', onLogout)
-document.getElementById('grades-refresh').addEventListener('click', refresh)
-
-handleGrades()
+// document.getElementById('grades-refresh').addEventListener('click', refresh)
+document.addEventListener('DOMContentLoaded', (event) => {
+  handleGrades()
+  setInterval(() => {
+    const tableElem = document.getElementById('grades-table')
+    tableElem.innerHTML = ''
+    handleGrades()
+  }, 2 * 60000)
+})
 
 function handleForm(e) {
   e.preventDefault()
@@ -16,23 +22,30 @@ function handleGrades() {
   const gradesElem = document.getElementById('grades')
   const loginFormElem = document.getElementById('login-form')
   const btnLogin = document.getElementById('btn-logout')
-  if (userManagement.isLogin) {
-    gradesElem.setAttribute('class', 'active')
-    loginFormElem.setAttribute('class', 'inactive')
-    btnLogin.setAttribute('class', 'btn btn-danger')
-  } else {
-    gradesElem.setAttribute('class', 'inactive')
-    loginFormElem.setAttribute('class', 'active')
-    btnLogin.setAttribute('class', 'inactive')
-  }
+  chrome.storage.sync.get('isLogin', (result) => {
+    const isLogin = result['isLogin']
+    console.log(isLogin)
+    if (isLogin) {
+      appendGradeElems()
+      gradesElem.setAttribute('class', 'active')
+      loginFormElem.setAttribute('class', 'inactive')
+      btnLogin.setAttribute('class', 'btn btn-danger')
+    } else {
+      gradesElem.setAttribute('class', 'inactive')
+      loginFormElem.setAttribute('class', 'active')
+      btnLogin.setAttribute('class', 'inactive')
+    }
+  })
 }
 
 function refresh() {
-  userManagement.fetchGrades()
+  userManager.fetchGrades()
 }
 
 function onLogout() {
-  userManagement.logout()
+  const tableElem = document.getElementById('grades-table')
+  tableElem.innerHTML = ''
+  userManager.logout()
   handleGrades()
 }
 
@@ -65,8 +78,7 @@ function createGradeRow(grade) {
 async function onLogin() {
   const username = document.getElementById('input-username').value
   const password = document.getElementById('input-password').value
-  await userManagement.login(username, password)
-  await userManagement.fetchGrades()
-  appendGradeElems()
+  await userManager.login(username, password)
+  await userManager.fetchGrades()
   handleGrades()
 }

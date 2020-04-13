@@ -4,20 +4,27 @@
 
 'use strict'
 
-import userManagement from './util/userManagement'
+import userManager from './util/userManager'
 
 function scheduleRequest() {
-  console.log('schedule refresh alarm to 30 minutes...')
-  chrome.alarms.create('refresh', { periodInMinutes: 0.1 })
+  console.log('schedule refresh alarm to 2 minutes...')
+  chrome.alarms.create('refresh', { periodInMinutes: 2 })
 }
 
 chrome.runtime.onInstalled.addListener(function () {
+  userManager.setIsLogin(false)
   scheduleRequest()
 })
 
+chrome.storage.onChanged.addListener(function (changes, namespace) {
+  console.log(changes)
+})
+
 chrome.alarms.onAlarm.addListener((alarm) => {
-  if (alarm.name === 'refresh') console.log('fetch')
-  // userManagement.fetchGrades()
+  if (alarm.name === 'refresh') {
+    console.log('fetch')
+    userManager.fetchGrades()
+  }
 })
 
 chrome.webRequest.onBeforeSendHeaders.addListener(
