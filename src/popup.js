@@ -4,6 +4,7 @@ import qs from 'qs'
 document.getElementById('login-form').addEventListener('submit', handleForm)
 document.getElementById('btn-logout').addEventListener('click', onLogout)
 document.getElementById('grades-refresh').addEventListener('click', refresh)
+
 handleGrades()
 
 function handleForm(e) {

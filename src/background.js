@@ -4,9 +4,21 @@
 
 'use strict'
 
-import qs from 'qs'
+import userManagement from './util/userManagement'
 
-chrome.runtime.onInstalled.addListener(async function () {})
+function scheduleRequest() {
+  console.log('schedule refresh alarm to 30 minutes...')
+  chrome.alarms.create('refresh', { periodInMinutes: 0.1 })
+}
+
+chrome.runtime.onInstalled.addListener(function () {
+  scheduleRequest()
+})
+
+chrome.alarms.onAlarm.addListener((alarm) => {
+  if (alarm.name === 'refresh') console.log('fetch')
+  // userManagement.fetchGrades()
+})
 
 chrome.webRequest.onBeforeSendHeaders.addListener(
   function (details) {
