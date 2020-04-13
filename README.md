@@ -4,9 +4,11 @@
 
 ## Installations
 
-- clone and build
+- clone
+- install modules and build
 
 ```
+npm i
 npm run build
 ```
 
