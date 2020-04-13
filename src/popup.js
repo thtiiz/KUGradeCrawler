@@ -13,10 +13,16 @@ function handleForm(e) {
 
 function handleGrades() {
   const gradesElem = document.getElementById('grades')
+  const loginFormElem = document.getElementById('login-form')
+  const btnLogin = document.getElementById('btn-logout')
   if (userManagement.isLogin) {
     gradesElem.setAttribute('class', 'active')
+    loginFormElem.setAttribute('class', 'inactive')
+    btnLogin.setAttribute('class', 'btn btn-danger')
   } else {
     gradesElem.setAttribute('class', 'inactive')
+    loginFormElem.setAttribute('class', 'active')
+    btnLogin.setAttribute('class', 'inactive')
   }
 }
 

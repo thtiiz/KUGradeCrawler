@@ -27,10 +27,8 @@ class UserManagement {
     }
     const res = await axios(options)
     const { data } = res
-    console.log(data)
     if (data.includes('Login')) this.isLogin = false
     else this.isLogin = true
-    console.log(this.isLogin)
   }
 
   logout() {
@@ -52,7 +50,6 @@ class UserManagement {
       .slice(0, titleElemIndex)
       .map((subject) => this.extractInfo(subject))
       .reverse()
-    console.log(lastTermGrades)
     this.saveToLocal(lastTermGrades)
   }
 
