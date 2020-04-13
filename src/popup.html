@@ -27,13 +27,15 @@
         <div id="grades-timestamp"></div>
       </div>
     </div>
+    <button class="btn" id="grades-refresh">refresh</button>
     <div class="container login-section">
       <div>Autentication</div>
-      <form>
-        <input id="input-username" class="form-control" placeholder="username" />
-        <input id="input-password" class="form-control" placeholder="password" type="password" />
+      <form id="login-form">
+        <input id="input-username" class="form-control" placeholder="username" type="text" name="username" />
+        <input id="input-password" class="form-control" placeholder="password" type="password" name="username" />
+        <button class="btn btn-primary" id="btn-login" style="width: 100%;" type="submit">Login</button>
       </form>
-      <button class="btn btn-primary" id="btn-login" style="width: 100%;">Login</button>
+      <button class="btn btn-danger" id="btn-logout" style="width: 100%;">Logout</button>
     </div>
     <script src="popup.js"></script>
   </body>

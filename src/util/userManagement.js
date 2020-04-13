@@ -6,6 +6,7 @@ class UserManagement {
   constructor() {
     this.URL_LOGIN = 'https://stdregis.ku.ac.th/_Login.php'
     this.URL_KU20 = 'https://stdregis.ku.ac.th/_Student_RptKu.php?mode=KU20'
+    this.isLogin = false
   }
 
   extractInfo(tr) {
@@ -24,14 +25,27 @@ class UserManagement {
       }),
       url: this.URL_LOGIN,
     }
-    await axios(options)
+    const res = await axios(options)
+    const { data } = res
+    console.log(data)
+    if (data.includes('Login')) this.isLogin = false
+    else this.isLogin = true
+    console.log(this.isLogin)
+  }
+
+  logout() {
+    chrome.storage.sync.clear(function () {
+      console.log('clear!!')
+    })
+    this.isLogin = false
   }
 
   async fetchGrades() {
     const res = await axios.get(this.URL_KU20)
     const { data } = res
-    console.log(data)
+    // console.log(data)
     const root = parse(data).removeWhitespace()
+    // console.log(root)
     const reverseElems = root.lastChild.querySelectorAll('tr').reverse()
     const titleElemIndex = reverseElems.findIndex((tr) => tr.childNodes.length <= 1)
     const lastTermGrades = reverseElems

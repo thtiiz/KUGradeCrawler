@@ -1,14 +1,35 @@
 import userManagement from './util/userManagement'
 import qs from 'qs'
 
-document.getElementById('btn-login').addEventListener('click', onLogin)
+document.getElementById('login-form').addEventListener('submit', handleForm)
+document.getElementById('btn-logout').addEventListener('click', onLogout)
+document.getElementById('grades-refresh').addEventListener('click', refresh)
+handleGrades()
 
-appendGradeElems()
+function handleForm(e) {
+  e.preventDefault()
+  onLogin()
+}
+
+function handleGrades() {
+  const gradesElem = document.getElementById('grades')
+  if (userManagement.isLogin) {
+    gradesElem.setAttribute('class', 'active')
+  } else {
+    gradesElem.setAttribute('class', 'inactive')
+  }
+}
+
+function refresh() {
+  userManagement.fetchGrades()
+}
+
+function onLogout() {
+  userManagement.logout()
+  handleGrades()
+}
 
 function appendGradeElems() {
-  // chrome.storage.sync.clear(function () {
-  //   console.log('clear!!')
-  // })
   chrome.storage.sync.get('grades', function (result) {
     const grades = qs.parse(result['grades'])
     const tableElem = document.getElementById('grades-table')
@@ -40,4 +61,5 @@ async function onLogin() {
   await userManagement.login(username, password)
   await userManagement.fetchGrades()
   appendGradeElems()
+  handleGrades()
 }
