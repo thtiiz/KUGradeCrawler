@@ -1,15 +1,21 @@
-import { login } from './util'
+import userManagement from './util/userManagement'
 import qs from 'qs'
-// document.getElementById('btn-login').addEventListener('click', onLogin)
+
+document.getElementById('btn-login').addEventListener('click', onLogin)
 
 appendGradeElems()
 
 function appendGradeElems() {
+  // chrome.storage.sync.clear(function () {
+  //   console.log('clear!!')
+  // })
   chrome.storage.sync.get('grades', function (result) {
     const grades = qs.parse(result['grades'])
-    const table = document.getElementById('table-grades')
+    const tableElem = document.getElementById('grades-table')
+    const timestampElem = document.getElementById('grades-timestamp')
+    timestampElem.innerHTML = new Date(grades.timestamp)
     grades.values.map((grade) => {
-      table.appendChild(createGradeRow(grade))
+      tableElem.appendChild(createGradeRow(grade))
     })
   })
 }
@@ -31,5 +37,7 @@ function createGradeRow(grade) {
 async function onLogin() {
   const username = document.getElementById('input-username').value
   const password = document.getElementById('input-password').value
-  const res = await login(username, password)
+  await userManagement.login(username, password)
+  await userManagement.fetchGrades()
+  appendGradeElems()
 }
