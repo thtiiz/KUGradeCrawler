@@ -22,3 +22,4 @@ npm run build
 
 - fetch last term grades every 2 minutes.
 - relogin (session expired)
+- unread badge

@@ -12,6 +12,9 @@ function scheduleRequest() {
 }
 
 chrome.runtime.onInstalled.addListener(function () {
+  chrome.storage.sync.clear(function () {
+    console.log('clear!!')
+  })
   userManager.setIsLogin(false)
   scheduleRequest()
 })

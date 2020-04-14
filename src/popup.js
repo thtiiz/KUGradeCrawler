@@ -1,9 +1,11 @@
 import userManager from './util/userManager'
+import badge from './util/badge'
 
 document.getElementById('login-form').addEventListener('submit', handleForm)
 document.getElementById('btn-logout').addEventListener('click', onLogout)
 document.addEventListener('DOMContentLoaded', (event) => {
   handleGrades()
+  badge.setAllRead()
   setInterval(() => {
     const tableElem = document.getElementById('grades-table')
     tableElem.innerHTML = ''
@@ -22,6 +24,7 @@ function handleGrades() {
   const loginSection = document.getElementById('login-section')
   chrome.storage.sync.get('isLogin', (result) => {
     const isLogin = result['isLogin']
+    console.log('islogin', isLogin)
     if (isLogin) {
       appendGradeElems()
       loginSection.setAttribute('class', 'inactive')

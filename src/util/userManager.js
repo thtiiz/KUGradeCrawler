@@ -1,6 +1,7 @@
 import qs from 'qs'
 import axios from 'axios'
 import { parse } from 'node-html-parser'
+import badge from './badge'
 
 class userManager {
   constructor() {
@@ -84,11 +85,12 @@ class userManager {
     const root = parse(data).removeWhitespace()
     const reverseElems = root.lastChild.querySelectorAll('tr').reverse()
     const titleElemIndex = reverseElems.findIndex((tr) => tr.childNodes.length <= 1)
-    const lastTermGrades = reverseElems
+    const newGrade = reverseElems
       .slice(0, titleElemIndex)
       .map((subject) => this.extractInfo(subject))
       .reverse()
-    this.saveToLocal(lastTermGrades)
+    badge.updateUnread(newGrade)
+    this.saveToLocal(newGrade)
   }
 
   saveToLocal(grades) {
