@@ -89,8 +89,8 @@ class userManager {
       .slice(0, titleElemIndex)
       .map((subject) => this.extractInfo(subject))
       .reverse()
-    badge.updateUnread(newGrade)
     this.saveToLocal(newGrade)
+    badge.updateUnread(newGrade)
   }
 
   saveToLocal(grades) {
